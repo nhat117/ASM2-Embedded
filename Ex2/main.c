@@ -8,63 +8,89 @@ int main(void)
     SYS_UnlockReg(); //Unlock protected regs
     CLK->PWRCON |= (1 << 0); //
     while(!(CLK->CLKSTATUS & (1 << 0)));
-    CLK->PWRCON |= (1 << 2);
-    while(!(CLK->CLKSTATUS & (1 << 4)));
+    //CLK->PWRCON |= (1 << 2);
+    //while(!(CLK->CLKSTATUS & (1 << 4)));
         
     //Select CPU clock
-    //22.11 MHz HXT
+    //12 MHz LXT
     CLK->CLKSEL0 &= (~(0b111<<0));
-    CLK->CLKSEL0 |= (1 << 2);
+    CLK->CLKSEL0 |= (0b000 << 0); // 12Mhz
     CLK->PWRCON &= ~(1<<7);// Normal mode
     //Clock frequency divider
+	  //Not using clock divider
     CLK->CLKDIV &= (~(0xF<<0)); 
     CLK->CLKDIV |= 0;
     //System initialization end---------------------
-    //GPIO initialization start --------------------
-		PB->PMD &= (~(0b11<< 22));
-		PB->PMD |= (0b01 << 22); 
-    //GPIO initialization end ----------------------
-    //Timer 0 initialization start--------------
+
+		
     //TM0 Clock selection and configuration
-    CLK->CLKSEL1 &= ~(0b111 << 20);
-    CLK->CLKSEL1 |= (0b000 << 20); // 12Mhz
-    CLK->APBCLK |= (1 << 5); // enable timer 3
-    //Pre-scale = 240
-    TIMER3->TCSR &= ~(0xFF << 0);
-    TIMER3->TCSR |= 239;
+    CLK->CLKSEL1 &= ~(0b111 << 8);
+    CLK->CLKSEL1 |= (0b010 << 8); // 12Mhz
+		CLK->CLKSEL1 &= ~(0b111 << 12);
+		CLK->CLKSEL1 |= (0b010 << 12);
+    CLK->APBCLK |= (1 << 2); // enable timer 0
+		CLK->APBCLK |= (1 << 3); // enable timer 1 
+		
+		// Timer 0 config
+    //Pre-scale = 12
+    TIMER0->TCSR &= ~(0xFF << 0);
+    TIMER0->TCSR |= 12 - 1;
     //reset Timer 0
-    TIMER3->TCSR |= (1 << 26);
+    TIMER0->TCSR |= (1 << 26);
     //define Timer 0 operation mode
-    TIMER3->TCSR &= ~(0b11 << 27);
-    TIMER3->TCSR |= (0b01 << 27);
-    TIMER3->TCSR &= ~(1 << 24);
+    TIMER0->TCSR &= ~(0b11 << 27);
+    TIMER0->TCSR |= (0b01 << 27);
+    TIMER0->TCSR &= ~(1 << 24);
     //TDR to be updated continuously while timer counter is counting
-    TIMER3->TCSR |= (1 << 16);
+    TIMER0->TCSR |= (1 << 16);
     //Enable TE bit (bit 29) of TCSR
     //The bit will enable the timer interrupt flag TIF
-    TIMER3->TCSR |= (1 << 29);
-    //TimeOut = 2.4kHz 
-    TIMER3->TCMPR = TIMER3_COUNTS;
+    TIMER0->TCSR |= (1 << 29);
+    
+    TIMER0->TCMPR = 499999;
     //start counting
-    TIMER3->TCSR |= (1 << 30);
-    //Timer 0 initialization end----------------
+    TIMER0->TCSR |= (1 << 30);
+		
+		////////////////////////////////////////////////
+		//Timer 1 config
+		TIMER1->TCSR &= ~(0xFF << 0);
+    TIMER1->TCSR |= 12 - 1;
+    //reset Timer 1
+    TIMER1->TCSR |= (1 << 26);
+    //define Timer 0 operation mode
+    TIMER1->TCSR &= ~(0b11 << 27);
+    TIMER1->TCSR |= (0b01 << 27);
+    TIMER1->TCSR &= ~(1 << 24);
+    //TDR to be updated continuously while timer counter is counting
+    TIMER1->TCSR |= (1 << 16);
+    //Enable TE bit (bit 29) of TCSR
+    //The bit will enable the timer interrupt flag TIF
+    TIMER1->TCSR |= (1 << 29);
+    
+    TIMER1->TCMPR = 199;
+    //start counting
+    TIMER1->TCSR |= (1 << 30);
+
     SYS_LockReg();  // Lock protected registers
 		
 		PC->PMD &= (~(0x03<<24));
 		PC->PMD |= (0x01 <<24);
+		PC->PMD &= (~(0x03<<26));
+		PC->PMD |= (0x01 <<26);
 		
     while (1) {
-         if (TIMER3->TISR & (1 << 0)) //Wait for the Overflow flag (TIF) to be 
+         if (TIMER0->TISR & (1 << 0)) //Wait for the Overflow flag (TIF) to be 
+         {
+            PC->DOUT ^= (1 << 13); //Toggle
+            TIMER0->TISR |= (1 << 0); //Clear the flag by writing 1 to it
+         }
+				 
+				 if (TIMER1->TISR & (1 << 0)) //Wait for the Overflow flag (TIF) to be 
          {
             PC->DOUT ^= (1 << 12); //Toggle
-            TIMER3->TISR |= (1 << 0); //Clear the flag by writing 1 to it
+            TIMER1->TISR |= (1 << 0); //Clear the flag by writing 1 to it
          }
-					
-					//while (!(TIMER3->TDR >= TIMER3_COUNTS));
-					//PC->DOUT ^= (1 << 12);
-					
-      //PC->DOUT ^= (1 << 12);
-			//CLK_SysTickDelay(10000);
+				
 
     }
 }
