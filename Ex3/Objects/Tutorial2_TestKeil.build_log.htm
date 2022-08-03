@@ -175,11 +175,14 @@ main.c(21): warning: implicit conversion changes signedness: 'int' to 'unsigned 
 main.c(24): warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
     CLK->CLKDIV &= (~(0xF<<0)); 
                 ~~  ^~~~~~~~~
+main.c(28): warning: binary integer literals are a GNU extension [-Wgnu-binary-literal]
+                SysTick->CTRL &= ~(0b111 << 0);
+                                   ^
 main.c(28): warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
-                SysTick->CTRL &= ~(1 << 2);
-                              ~~ ^~~~~~~~~
+                SysTick->CTRL &= ~(0b111 << 0);
+                              ~~ ^~~~~~~~~~~~~
 main.c(31): warning: binary integer literals are a GNU extension [-Wgnu-binary-literal]
-                SysTick->CTRL |= (0b111 << 0);
+                SysTick->CTRL |= (0b011 << 0);
                                   ^
 main.c(36): warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
                 PC->PMD &= (~(0x03<<24));
@@ -191,11 +194,11 @@ main.c(43): note: declare 'static' if the function is not intended to be used ou
 void SysTick_Handler() {
 ^
 static 
-40 warnings generated.
+41 warnings generated.
 compiling main.c...
 linking...
 Program Size: Code=516 RO-data=208 RW-data=0 ZI-data=1120  
-".\Objects\Tutorial2_TestKeil.axf" - 0 Error(s), 40 Warning(s).
+".\Objects\Tutorial2_TestKeil.axf" - 0 Error(s), 41 Warning(s).
 
 <h2>Software Packages used:</h2>
 

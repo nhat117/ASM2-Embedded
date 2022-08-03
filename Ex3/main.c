@@ -25,10 +25,10 @@ int main(void)
     //System initialization end---------------------
 
 		
-		SysTick->CTRL &= ~(1 << 2);
-		SysTick->LOAD = 12000000 - 1;
+		SysTick->CTRL &= ~(0b111 << 0);
+		SysTick->LOAD = 6000000 - 1;
 		SysTick->VAL = 0;
-		SysTick->CTRL |= (0b111 << 0);
+		SysTick->CTRL |= (0b011 << 0);
 		
     SYS_LockReg();  // Lock protected registers
 
