@@ -154,32 +154,48 @@ int pressCount = 0;
 main.c(6): note: declare 'static' if the variable is not intended to be used outside of this translation unit
 int pressCount = 0;
 ^
-main.c(17): warning: binary integer literals are a GNU extension [-Wgnu-binary-literal]
-    CLK->CLKSEL0 &= (~(0b111<<0));
-                       ^
-main.c(17): warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
-    CLK->CLKSEL0 &= (~(0b111<<0));
-                 ~~  ^~~~~~~~~~~
 main.c(18): warning: binary integer literals are a GNU extension [-Wgnu-binary-literal]
-    CLK->CLKSEL0 |= (0b010 << 3); // 12Mhz
-                     ^
+    CLK->CLKSEL0 &= (~(0b111<<0)); // 12Mhz cpu
+                       ^
+main.c(18): warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
+    CLK->CLKSEL0 &= (~(0b111<<0)); // 12Mhz cpu
+                 ~~  ^~~~~~~~~~~
+main.c(19): warning: binary integer literals are a GNU extension [-Wgnu-binary-literal]
+          CLK->CLKSEL0 &= (~(0b111<<3)); //reset stclk_s
+                             ^
 main.c(19): warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
+          CLK->CLKSEL0 &= (~(0b111<<3)); //reset stclk_s
+                       ~~  ^~~~~~~~~~~
+main.c(20): warning: binary integer literals are a GNU extension [-Wgnu-binary-literal]
+    CLK->CLKSEL0 |= (0b011 << 3); // 12Mhz
+                     ^
+main.c(21): warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
     CLK->PWRCON &= ~(1<<7);// Normal mode
                 ~~ ^~~~~~~
-main.c(22): warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
+main.c(24): warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
     CLK->CLKDIV &= (~(0xF<<0)); 
                 ~~  ^~~~~~~~~
-main.c(33): warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
-        PC->PMD &= ~(1 << 24);
-                ~~ ^~~~~~~~~~
-main.c(34): warning: binary integer literals are a GNU extension [-Wgnu-binary-literal]
-        PC->PMD |= 0b01 << 24;
-                   ^
-36 warnings generated.
+main.c(28): warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
+                SysTick->CTRL &= ~(1 << 2);
+                              ~~ ^~~~~~~~~
+main.c(31): warning: binary integer literals are a GNU extension [-Wgnu-binary-literal]
+                SysTick->CTRL |= (0b111 << 0);
+                                  ^
+main.c(36): warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
+                PC->PMD &= (~(0x03<<24));
+                        ~~  ^~~~~~~~~~~
+main.c(43): warning: no previous prototype for function 'SysTick_Handler' [-Wmissing-prototypes]
+void SysTick_Handler() {
+     ^
+main.c(43): note: declare 'static' if the function is not intended to be used outside of this translation unit
+void SysTick_Handler() {
+^
+static 
+40 warnings generated.
 compiling main.c...
 linking...
-Program Size: Code=492 RO-data=208 RW-data=0 ZI-data=1120  
-".\Objects\Tutorial2_TestKeil.axf" - 0 Error(s), 36 Warning(s).
+Program Size: Code=516 RO-data=208 RW-data=0 ZI-data=1120  
+".\Objects\Tutorial2_TestKeil.axf" - 0 Error(s), 40 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -193,7 +209,7 @@ Package Vendor: Nuvoton
   C:\Users\nhatbuiminh\AppData\Local\Arm\Packs\Nuvoton\NuMicro_DFP\1.3.16\Device\NUC100\Include
 
 <h2>Collection of Component Files used:</h2>
-Build Time Elapsed:  00:00:00
+Build Time Elapsed:  00:00:01
 </pre>
 </body>
 </html>

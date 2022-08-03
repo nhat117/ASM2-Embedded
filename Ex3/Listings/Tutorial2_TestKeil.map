@@ -13,12 +13,14 @@ Section Cross References
     startup_nuc100series.o(RESET) refers (Special) to heapauxi.o(.text) for __use_two_region_memory
     startup_nuc100series.o(RESET) refers to startup_nuc100series.o(STACK) for __initial_sp
     startup_nuc100series.o(RESET) refers to startup_nuc100series.o(.text) for Reset_Handler
+    startup_nuc100series.o(RESET) refers to main.o(.text.SysTick_Handler) for SysTick_Handler
     startup_nuc100series.o(.text) refers (Special) to heapauxi.o(.text) for __use_two_region_memory
     startup_nuc100series.o(.text) refers to system_nuc100series.o(.text.SystemInit) for SystemInit
     startup_nuc100series.o(.text) refers to __main.o(!!!main) for __main
     startup_nuc100series.o(.text) refers to startup_nuc100series.o(HEAP) for Heap_Mem
     startup_nuc100series.o(.text) refers to startup_nuc100series.o(STACK) for Stack_Mem
     main.o(.ARM.exidx.text.main) refers to main.o(.text.main) for [Anonymous Symbol]
+    main.o(.ARM.exidx.text.SysTick_Handler) refers to main.o(.text.SysTick_Handler) for [Anonymous Symbol]
     __main.o(!!!main) refers to __rtentry.o(.ARM.Collect$$rtentry$$00000000) for __rt_entry
     __rtentry.o(.ARM.Collect$$rtentry$$00000000) refers (Special) to __rtentry2.o(.ARM.Collect$$rtentry$$0000000A) for __rt_entry_li
     __rtentry.o(.ARM.Collect$$rtentry$$00000000) refers (Special) to __rtentry2.o(.ARM.Collect$$rtentry$$0000000D) for __rt_entry_main
@@ -143,10 +145,11 @@ Removing Unused input sections from the image.
     Removing system_nuc100series.o(.data..L_MergedGlobals), (44 bytes).
     Removing main.o(.text), (0 bytes).
     Removing main.o(.ARM.exidx.text.main), (8 bytes).
+    Removing main.o(.ARM.exidx.text.SysTick_Handler), (8 bytes).
     Removing main.o(.bss.pressCount), (4 bytes).
     Removing main.o(.ARM.use_no_argv), (4 bytes).
 
-9 unused section(s) (total 228 bytes) removed from the image.
+10 unused section(s) (total 236 bytes) removed from the image.
 
 ==============================================================================
 
@@ -270,14 +273,16 @@ Image Symbol Table
     .text                                    0x00000200   Section        8  libspace.o(.text)
     .text                                    0x00000208   Section        0  sys_exit.o(.text)
     .text                                    0x00000214   Section        2  use_no_semi.o(.text)
-    [Anonymous Symbol]                       0x00000216   Section        0  system_nuc100series.o(.text.SystemInit)
     .text                                    0x00000216   Section        0  indicate_semi.o(.text)
-    [Anonymous Symbol]                       0x00000218   Section        0  main.o(.text.main)
-    __arm_cp.0_0                             0x00000298   Number         4  main.o(.text.main)
-    __arm_cp.0_1                             0x0000029c   Number         4  main.o(.text.main)
-    __arm_cp.0_2                             0x000002a0   Number         4  main.o(.text.main)
-    __arm_cp.0_3                             0x000002a4   Number         4  main.o(.text.main)
-    __arm_cp.0_4                             0x000002a8   Number         4  main.o(.text.main)
+    [Anonymous Symbol]                       0x00000218   Section        0  main.o(.text.SysTick_Handler)
+    __arm_cp.1_0                             0x00000228   Number         4  main.o(.text.SysTick_Handler)
+    [Anonymous Symbol]                       0x0000022c   Section        0  system_nuc100series.o(.text.SystemInit)
+    [Anonymous Symbol]                       0x00000230   Section        0  main.o(.text.main)
+    __arm_cp.0_0                             0x000002b0   Number         4  main.o(.text.main)
+    __arm_cp.0_1                             0x000002b4   Number         4  main.o(.text.main)
+    __arm_cp.0_2                             0x000002b8   Number         4  main.o(.text.main)
+    __arm_cp.0_3                             0x000002bc   Number         4  main.o(.text.main)
+    __arm_cp.0_4                             0x000002c0   Number         4  main.o(.text.main)
     .bss                                     0x20000000   Section       96  libspace.o(.bss)
     Heap_Mem                                 0x20000060   Data           0  startup_nuc100series.o(HEAP)
     Stack_Mem                                0x20000060   Data        1024  startup_nuc100series.o(STACK)
@@ -371,7 +376,6 @@ Image Symbol Table
     HardFault_Handler                        0x0000016b   Thumb Code     2  startup_nuc100series.o(.text)
     SVC_Handler                              0x0000016d   Thumb Code     2  startup_nuc100series.o(.text)
     PendSV_Handler                           0x0000016f   Thumb Code     2  startup_nuc100series.o(.text)
-    SysTick_Handler                          0x00000171   Thumb Code     2  startup_nuc100series.o(.text)
     ACMP_IRQHandler                          0x00000173   Thumb Code     0  startup_nuc100series.o(.text)
     ADC_IRQHandler                           0x00000173   Thumb Code     0  startup_nuc100series.o(.text)
     BOD_IRQHandler                           0x00000173   Thumb Code     0  startup_nuc100series.o(.text)
@@ -415,11 +419,12 @@ Image Symbol Table
     _sys_exit                                0x00000209   Thumb Code     8  sys_exit.o(.text)
     __I$use$semihosting                      0x00000215   Thumb Code     0  use_no_semi.o(.text)
     __use_no_semihosting_swi                 0x00000215   Thumb Code     2  use_no_semi.o(.text)
-    SystemInit                               0x00000217   Thumb Code     2  system_nuc100series.o(.text.SystemInit)
     __semihosting_library_function           0x00000217   Thumb Code     0  indicate_semi.o(.text)
-    main                                     0x00000219   Thumb Code   148  main.o(.text.main)
-    Region$$Table$$Base                      0x000002ac   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x000002bc   Number         0  anon$$obj.o(Region$$Table)
+    SysTick_Handler                          0x00000219   Thumb Code    20  main.o(.text.SysTick_Handler)
+    SystemInit                               0x0000022d   Thumb Code     2  system_nuc100series.o(.text.SystemInit)
+    main                                     0x00000231   Thumb Code   148  main.o(.text.main)
+    Region$$Table$$Base                      0x000002c4   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x000002d4   Number         0  anon$$obj.o(Region$$Table)
     __libspace_start                         0x20000000   Data          96  libspace.o(.bss)
     __temporary_stack_top$libspace           0x20000060   Data           0  libspace.o(.bss)
 
@@ -431,81 +436,84 @@ Memory Map of the image
 
   Image Entry point : 0x00000149
 
-  Load Region LR_1 (Base: 0x00000000, Size: 0x000002bc, Max: 0xffffffff, ABSOLUTE)
+  Load Region LR_1 (Base: 0x00000000, Size: 0x000002d4, Max: 0xffffffff, ABSOLUTE)
 
-    Execution Region ER_RO (Exec base: 0x00000000, Load base: 0x00000000, Size: 0x000002bc, Max: 0xffffffff, ABSOLUTE)
+    Execution Region ER_RO (Exec base: 0x00000000, Load base: 0x00000000, Size: 0x000002d4, Max: 0xffffffff, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
     0x00000000   0x00000000   0x000000c0   Data   RO           16    RESET               startup_nuc100series.o
-    0x000000c0   0x000000c0   0x00000008   Code   RO           41  * !!!main             c_p.l(__main.o)
-    0x000000c8   0x000000c8   0x0000003c   Code   RO          216    !!!scatter          c_p.l(__scatter.o)
-    0x00000104   0x00000104   0x0000001c   Code   RO          218    !!handler_zi        c_p.l(__scatter_zi.o)
-    0x00000120   0x00000120   0x00000002   Code   RO           79    .ARM.Collect$$libinit$$00000000  c_p.l(libinit.o)
-    0x00000122   0x00000122   0x00000000   Code   RO           93    .ARM.Collect$$libinit$$00000002  c_p.l(libinit2.o)
-    0x00000122   0x00000122   0x00000000   Code   RO           95    .ARM.Collect$$libinit$$00000004  c_p.l(libinit2.o)
-    0x00000122   0x00000122   0x00000000   Code   RO           98    .ARM.Collect$$libinit$$0000000A  c_p.l(libinit2.o)
-    0x00000122   0x00000122   0x00000000   Code   RO          100    .ARM.Collect$$libinit$$0000000C  c_p.l(libinit2.o)
-    0x00000122   0x00000122   0x00000000   Code   RO          102    .ARM.Collect$$libinit$$0000000E  c_p.l(libinit2.o)
-    0x00000122   0x00000122   0x00000000   Code   RO          105    .ARM.Collect$$libinit$$00000011  c_p.l(libinit2.o)
-    0x00000122   0x00000122   0x00000000   Code   RO          107    .ARM.Collect$$libinit$$00000013  c_p.l(libinit2.o)
-    0x00000122   0x00000122   0x00000000   Code   RO          109    .ARM.Collect$$libinit$$00000015  c_p.l(libinit2.o)
-    0x00000122   0x00000122   0x00000000   Code   RO          111    .ARM.Collect$$libinit$$00000017  c_p.l(libinit2.o)
-    0x00000122   0x00000122   0x00000000   Code   RO          113    .ARM.Collect$$libinit$$00000019  c_p.l(libinit2.o)
-    0x00000122   0x00000122   0x00000000   Code   RO          115    .ARM.Collect$$libinit$$0000001B  c_p.l(libinit2.o)
-    0x00000122   0x00000122   0x00000000   Code   RO          117    .ARM.Collect$$libinit$$0000001D  c_p.l(libinit2.o)
-    0x00000122   0x00000122   0x00000000   Code   RO          119    .ARM.Collect$$libinit$$0000001F  c_p.l(libinit2.o)
-    0x00000122   0x00000122   0x00000000   Code   RO          121    .ARM.Collect$$libinit$$00000021  c_p.l(libinit2.o)
-    0x00000122   0x00000122   0x00000000   Code   RO          123    .ARM.Collect$$libinit$$00000023  c_p.l(libinit2.o)
-    0x00000122   0x00000122   0x00000000   Code   RO          125    .ARM.Collect$$libinit$$00000025  c_p.l(libinit2.o)
-    0x00000122   0x00000122   0x00000000   Code   RO          129    .ARM.Collect$$libinit$$0000002C  c_p.l(libinit2.o)
-    0x00000122   0x00000122   0x00000000   Code   RO          131    .ARM.Collect$$libinit$$0000002E  c_p.l(libinit2.o)
-    0x00000122   0x00000122   0x00000000   Code   RO          133    .ARM.Collect$$libinit$$00000030  c_p.l(libinit2.o)
-    0x00000122   0x00000122   0x00000000   Code   RO          135    .ARM.Collect$$libinit$$00000032  c_p.l(libinit2.o)
-    0x00000122   0x00000122   0x00000002   Code   RO          136    .ARM.Collect$$libinit$$00000033  c_p.l(libinit2.o)
-    0x00000124   0x00000124   0x00000002   Code   RO          171    .ARM.Collect$$libshutdown$$00000000  c_p.l(libshutdown.o)
-    0x00000126   0x00000126   0x00000000   Code   RO          199    .ARM.Collect$$libshutdown$$00000002  c_p.l(libshutdown2.o)
-    0x00000126   0x00000126   0x00000000   Code   RO          201    .ARM.Collect$$libshutdown$$00000004  c_p.l(libshutdown2.o)
-    0x00000126   0x00000126   0x00000000   Code   RO          204    .ARM.Collect$$libshutdown$$00000007  c_p.l(libshutdown2.o)
-    0x00000126   0x00000126   0x00000000   Code   RO          207    .ARM.Collect$$libshutdown$$0000000A  c_p.l(libshutdown2.o)
-    0x00000126   0x00000126   0x00000000   Code   RO          209    .ARM.Collect$$libshutdown$$0000000C  c_p.l(libshutdown2.o)
-    0x00000126   0x00000126   0x00000000   Code   RO          212    .ARM.Collect$$libshutdown$$0000000F  c_p.l(libshutdown2.o)
-    0x00000126   0x00000126   0x00000002   Code   RO          213    .ARM.Collect$$libshutdown$$00000010  c_p.l(libshutdown2.o)
-    0x00000128   0x00000128   0x00000000   Code   RO           43    .ARM.Collect$$rtentry$$00000000  c_p.l(__rtentry.o)
-    0x00000128   0x00000128   0x00000000   Code   RO           49    .ARM.Collect$$rtentry$$00000002  c_p.l(__rtentry2.o)
-    0x00000128   0x00000128   0x00000006   Code   RO           61    .ARM.Collect$$rtentry$$00000004  c_p.l(__rtentry4.o)
-    0x0000012e   0x0000012e   0x00000000   Code   RO           51    .ARM.Collect$$rtentry$$00000009  c_p.l(__rtentry2.o)
-    0x0000012e   0x0000012e   0x00000004   Code   RO           52    .ARM.Collect$$rtentry$$0000000A  c_p.l(__rtentry2.o)
-    0x00000132   0x00000132   0x00000000   Code   RO           54    .ARM.Collect$$rtentry$$0000000C  c_p.l(__rtentry2.o)
-    0x00000132   0x00000132   0x00000008   Code   RO           55    .ARM.Collect$$rtentry$$0000000D  c_p.l(__rtentry2.o)
-    0x0000013a   0x0000013a   0x00000002   Code   RO           84    .ARM.Collect$$rtexit$$00000000  c_p.l(rtexit.o)
-    0x0000013c   0x0000013c   0x00000000   Code   RO          142    .ARM.Collect$$rtexit$$00000002  c_p.l(rtexit2.o)
-    0x0000013c   0x0000013c   0x00000004   Code   RO          143    .ARM.Collect$$rtexit$$00000003  c_p.l(rtexit2.o)
-    0x00000140   0x00000140   0x00000006   Code   RO          144    .ARM.Collect$$rtexit$$00000004  c_p.l(rtexit2.o)
+    0x000000c0   0x000000c0   0x00000008   Code   RO           44  * !!!main             c_p.l(__main.o)
+    0x000000c8   0x000000c8   0x0000003c   Code   RO          219    !!!scatter          c_p.l(__scatter.o)
+    0x00000104   0x00000104   0x0000001c   Code   RO          221    !!handler_zi        c_p.l(__scatter_zi.o)
+    0x00000120   0x00000120   0x00000002   Code   RO           82    .ARM.Collect$$libinit$$00000000  c_p.l(libinit.o)
+    0x00000122   0x00000122   0x00000000   Code   RO           96    .ARM.Collect$$libinit$$00000002  c_p.l(libinit2.o)
+    0x00000122   0x00000122   0x00000000   Code   RO           98    .ARM.Collect$$libinit$$00000004  c_p.l(libinit2.o)
+    0x00000122   0x00000122   0x00000000   Code   RO          101    .ARM.Collect$$libinit$$0000000A  c_p.l(libinit2.o)
+    0x00000122   0x00000122   0x00000000   Code   RO          103    .ARM.Collect$$libinit$$0000000C  c_p.l(libinit2.o)
+    0x00000122   0x00000122   0x00000000   Code   RO          105    .ARM.Collect$$libinit$$0000000E  c_p.l(libinit2.o)
+    0x00000122   0x00000122   0x00000000   Code   RO          108    .ARM.Collect$$libinit$$00000011  c_p.l(libinit2.o)
+    0x00000122   0x00000122   0x00000000   Code   RO          110    .ARM.Collect$$libinit$$00000013  c_p.l(libinit2.o)
+    0x00000122   0x00000122   0x00000000   Code   RO          112    .ARM.Collect$$libinit$$00000015  c_p.l(libinit2.o)
+    0x00000122   0x00000122   0x00000000   Code   RO          114    .ARM.Collect$$libinit$$00000017  c_p.l(libinit2.o)
+    0x00000122   0x00000122   0x00000000   Code   RO          116    .ARM.Collect$$libinit$$00000019  c_p.l(libinit2.o)
+    0x00000122   0x00000122   0x00000000   Code   RO          118    .ARM.Collect$$libinit$$0000001B  c_p.l(libinit2.o)
+    0x00000122   0x00000122   0x00000000   Code   RO          120    .ARM.Collect$$libinit$$0000001D  c_p.l(libinit2.o)
+    0x00000122   0x00000122   0x00000000   Code   RO          122    .ARM.Collect$$libinit$$0000001F  c_p.l(libinit2.o)
+    0x00000122   0x00000122   0x00000000   Code   RO          124    .ARM.Collect$$libinit$$00000021  c_p.l(libinit2.o)
+    0x00000122   0x00000122   0x00000000   Code   RO          126    .ARM.Collect$$libinit$$00000023  c_p.l(libinit2.o)
+    0x00000122   0x00000122   0x00000000   Code   RO          128    .ARM.Collect$$libinit$$00000025  c_p.l(libinit2.o)
+    0x00000122   0x00000122   0x00000000   Code   RO          132    .ARM.Collect$$libinit$$0000002C  c_p.l(libinit2.o)
+    0x00000122   0x00000122   0x00000000   Code   RO          134    .ARM.Collect$$libinit$$0000002E  c_p.l(libinit2.o)
+    0x00000122   0x00000122   0x00000000   Code   RO          136    .ARM.Collect$$libinit$$00000030  c_p.l(libinit2.o)
+    0x00000122   0x00000122   0x00000000   Code   RO          138    .ARM.Collect$$libinit$$00000032  c_p.l(libinit2.o)
+    0x00000122   0x00000122   0x00000002   Code   RO          139    .ARM.Collect$$libinit$$00000033  c_p.l(libinit2.o)
+    0x00000124   0x00000124   0x00000002   Code   RO          174    .ARM.Collect$$libshutdown$$00000000  c_p.l(libshutdown.o)
+    0x00000126   0x00000126   0x00000000   Code   RO          202    .ARM.Collect$$libshutdown$$00000002  c_p.l(libshutdown2.o)
+    0x00000126   0x00000126   0x00000000   Code   RO          204    .ARM.Collect$$libshutdown$$00000004  c_p.l(libshutdown2.o)
+    0x00000126   0x00000126   0x00000000   Code   RO          207    .ARM.Collect$$libshutdown$$00000007  c_p.l(libshutdown2.o)
+    0x00000126   0x00000126   0x00000000   Code   RO          210    .ARM.Collect$$libshutdown$$0000000A  c_p.l(libshutdown2.o)
+    0x00000126   0x00000126   0x00000000   Code   RO          212    .ARM.Collect$$libshutdown$$0000000C  c_p.l(libshutdown2.o)
+    0x00000126   0x00000126   0x00000000   Code   RO          215    .ARM.Collect$$libshutdown$$0000000F  c_p.l(libshutdown2.o)
+    0x00000126   0x00000126   0x00000002   Code   RO          216    .ARM.Collect$$libshutdown$$00000010  c_p.l(libshutdown2.o)
+    0x00000128   0x00000128   0x00000000   Code   RO           46    .ARM.Collect$$rtentry$$00000000  c_p.l(__rtentry.o)
+    0x00000128   0x00000128   0x00000000   Code   RO           52    .ARM.Collect$$rtentry$$00000002  c_p.l(__rtentry2.o)
+    0x00000128   0x00000128   0x00000006   Code   RO           64    .ARM.Collect$$rtentry$$00000004  c_p.l(__rtentry4.o)
+    0x0000012e   0x0000012e   0x00000000   Code   RO           54    .ARM.Collect$$rtentry$$00000009  c_p.l(__rtentry2.o)
+    0x0000012e   0x0000012e   0x00000004   Code   RO           55    .ARM.Collect$$rtentry$$0000000A  c_p.l(__rtentry2.o)
+    0x00000132   0x00000132   0x00000000   Code   RO           57    .ARM.Collect$$rtentry$$0000000C  c_p.l(__rtentry2.o)
+    0x00000132   0x00000132   0x00000008   Code   RO           58    .ARM.Collect$$rtentry$$0000000D  c_p.l(__rtentry2.o)
+    0x0000013a   0x0000013a   0x00000002   Code   RO           87    .ARM.Collect$$rtexit$$00000000  c_p.l(rtexit.o)
+    0x0000013c   0x0000013c   0x00000000   Code   RO          145    .ARM.Collect$$rtexit$$00000002  c_p.l(rtexit2.o)
+    0x0000013c   0x0000013c   0x00000004   Code   RO          146    .ARM.Collect$$rtexit$$00000003  c_p.l(rtexit2.o)
+    0x00000140   0x00000140   0x00000006   Code   RO          147    .ARM.Collect$$rtexit$$00000004  c_p.l(rtexit2.o)
     0x00000146   0x00000146   0x00000002   PAD
     0x00000148   0x00000148   0x00000064   Code   RO           17  * .text               startup_nuc100series.o
-    0x000001ac   0x000001ac   0x00000006   Code   RO           39    .text               c_p.l(heapauxi.o)
-    0x000001b2   0x000001b2   0x0000003e   Code   RO           65    .text               c_p.l(sys_stackheap_outer.o)
-    0x000001f0   0x000001f0   0x00000010   Code   RO           68    .text               c_p.l(exit.o)
-    0x00000200   0x00000200   0x00000008   Code   RO           80    .text               c_p.l(libspace.o)
-    0x00000208   0x00000208   0x0000000c   Code   RO          137    .text               c_p.l(sys_exit.o)
-    0x00000214   0x00000214   0x00000002   Code   RO          160    .text               c_p.l(use_no_semi.o)
-    0x00000216   0x00000216   0x00000000   Code   RO          162    .text               c_p.l(indicate_semi.o)
-    0x00000216   0x00000216   0x00000002   Code   RO            4    .text.SystemInit    system_nuc100series.o
-    0x00000218   0x00000218   0x00000094   Code   RO           24    .text.main          main.o
-    0x000002ac   0x000002ac   0x00000010   Data   RO          215    Region$$Table       anon$$obj.o
+    0x000001ac   0x000001ac   0x00000006   Code   RO           42    .text               c_p.l(heapauxi.o)
+    0x000001b2   0x000001b2   0x0000003e   Code   RO           68    .text               c_p.l(sys_stackheap_outer.o)
+    0x000001f0   0x000001f0   0x00000010   Code   RO           71    .text               c_p.l(exit.o)
+    0x00000200   0x00000200   0x00000008   Code   RO           83    .text               c_p.l(libspace.o)
+    0x00000208   0x00000208   0x0000000c   Code   RO          140    .text               c_p.l(sys_exit.o)
+    0x00000214   0x00000214   0x00000002   Code   RO          163    .text               c_p.l(use_no_semi.o)
+    0x00000216   0x00000216   0x00000000   Code   RO          165    .text               c_p.l(indicate_semi.o)
+    0x00000216   0x00000216   0x00000002   PAD
+    0x00000218   0x00000218   0x00000014   Code   RO           26    .text.SysTick_Handler  main.o
+    0x0000022c   0x0000022c   0x00000002   Code   RO            4    .text.SystemInit    system_nuc100series.o
+    0x0000022e   0x0000022e   0x00000002   PAD
+    0x00000230   0x00000230   0x00000094   Code   RO           24    .text.main          main.o
+    0x000002c4   0x000002c4   0x00000010   Data   RO          218    Region$$Table       anon$$obj.o
 
 
-    Execution Region ER_RW (Exec base: 0x20000000, Load base: 0x000002bc, Size: 0x00000000, Max: 0xffffffff, ABSOLUTE)
+    Execution Region ER_RW (Exec base: 0x20000000, Load base: 0x000002d4, Size: 0x00000000, Max: 0xffffffff, ABSOLUTE)
 
     **** No section assigned to this execution region ****
 
 
-    Execution Region ER_ZI (Exec base: 0x20000000, Load base: 0x000002bc, Size: 0x00000460, Max: 0xffffffff, ABSOLUTE)
+    Execution Region ER_ZI (Exec base: 0x20000000, Load base: 0x000002d4, Size: 0x00000460, Max: 0xffffffff, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x20000000        -       0x00000060   Zero   RW           81    .bss                c_p.l(libspace.o)
+    0x20000000        -       0x00000060   Zero   RW           84    .bss                c_p.l(libspace.o)
     0x20000060        -       0x00000000   Zero   RW           15    HEAP                startup_nuc100series.o
     0x20000060        -       0x00000400   Zero   RW           14    STACK               startup_nuc100series.o
 
@@ -517,14 +525,14 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
 
-       148         20          0          0          0       2264   main.o
+       168         24          0          0          0       2374   main.o
        100         46        192          0       1024        684   startup_nuc100series.o
          2          0          0          0          0       2172   system_nuc100series.o
 
     ----------------------------------------------------------------------
-       250         66        208          0       1024       5120   Object Totals
+       272         70        208          0       1024       5230   Object Totals
          0          0         16          0          0          0   (incl. Generated)
-         0          0          0          0          0          0   (incl. Padding)
+         2          0          0          0          0          0   (incl. Padding)
 
     ----------------------------------------------------------------------
 
@@ -551,8 +559,8 @@ Image component sizes
          2          0          0          0          0         68   use_no_semi.o
 
     ----------------------------------------------------------------------
-       242         16          0          0         96        548   Library Totals
-         2          0          0          0          0          0   (incl. Padding)
+       244         16          0          0         96        548   Library Totals
+         4          0          0          0          0          0   (incl. Padding)
 
     ----------------------------------------------------------------------
 
@@ -561,7 +569,7 @@ Image component sizes
        240         16          0          0         96        548   c_p.l
 
     ----------------------------------------------------------------------
-       242         16          0          0         96        548   Library Totals
+       244         16          0          0         96        548   Library Totals
 
     ----------------------------------------------------------------------
 
@@ -570,15 +578,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-       492         82        208          0       1120       5492   Grand Totals
-       492         82        208          0       1120       5492   ELF Image Totals
-       492         82        208          0          0          0   ROM Totals
+       516         86        208          0       1120       5602   Grand Totals
+       516         86        208          0       1120       5602   ELF Image Totals
+       516         86        208          0          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                  700 (   0.68kB)
+    Total RO  Size (Code + RO Data)                  724 (   0.71kB)
     Total RW  Size (RW Data + ZI Data)              1120 (   1.09kB)
-    Total ROM Size (Code + RO Data + RW Data)        700 (   0.68kB)
+    Total ROM Size (Code + RO Data + RW Data)        724 (   0.71kB)
 
 ==============================================================================
 
