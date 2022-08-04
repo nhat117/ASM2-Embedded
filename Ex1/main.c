@@ -52,8 +52,13 @@ int main(void)
 		
 		PC->PMD &= (~(0x03<<24));
 		PC->PMD |= (0x01 <<24);
+		//Output the CPUCLOCK
+		PC->PMD &= (~(0x03<<26));
+		PC->PMD |= (0x01 <<26);
 		
     while (1) {
+		 //Toggle the CPU clock
+		 PC->DOUT ^=(1<<13);
          if (TIMER3->TISR & (1 << 0)) //Wait for the Overflow flag (TIF) to be 
          {
             PC->DOUT ^= (1 << 12); //Toggle

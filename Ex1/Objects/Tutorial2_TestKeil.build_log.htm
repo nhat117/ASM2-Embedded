@@ -21,7 +21,7 @@ Target DLL:      NULink\Nu_Link.dll V3.02
 Dialog DLL:      TARMCM1.DLL V1.14.2.0
  
 <h2>Project:</h2>
-\\Mac\Home\Desktop\Asm-1\Tutorial2_TestKeil.uvprojx
+\\Mac\Home\Desktop\Asm-1\Ex1\Ex1.uvprojx
 Project File Date:  07/13/2022
 
 <h2>Output:</h2>
@@ -196,14 +196,17 @@ main.c(40): warning: implicit conversion changes signedness: 'int' to 'unsigned 
 main.c(53): warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
                 PC->PMD &= (~(0x03<<24));
                         ~~  ^~~~~~~~~~~
-main.c(130): warning: no newline at end of file [-Wnewline-eof]
+main.c(55): warning: implicit conversion changes signedness: 'int' to 'unsigned int' [-Wsign-conversion]
+                PC->PMD &= (~(0x03<<26));
+                        ~~  ^~~~~~~~~~~
+main.c(134): warning: no newline at end of file [-Wnewline-eof]
 // //------------------------------------------- main.c CODE ENDS
                                                                  ^
-45 warnings generated.
+46 warnings generated.
 compiling main.c...
 linking...
-Program Size: Code=604 RO-data=208 RW-data=0 ZI-data=1120  
-".\Objects\Tutorial2_TestKeil.axf" - 0 Error(s), 45 Warning(s).
+Program Size: Code=632 RO-data=208 RW-data=0 ZI-data=1120  
+".\Objects\Tutorial2_TestKeil.axf" - 0 Error(s), 46 Warning(s).
 
 <h2>Software Packages used:</h2>
 
